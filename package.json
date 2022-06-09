@@ -1,0 +1,27 @@
+{
+  "name": "chocolate-vending-machine",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Laaaaannn/chocolate-vending-machine.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Laaaaannn/chocolate-vending-machine/issues"
+  },
+  "homepage": "https://github.com/Laaaaannn/chocolate-vending-machine#readme",
+  "dependencies": {
+    "prompts": "^2.4.2"
+  },
+  "devDependencies": {
+    "mocha": "^10.0.0"
+  }
+}
