@@ -1,7 +1,11 @@
 # chocolate-vending-machine
 
-## Question
-You’ve been employed to build the software behind a brand new state-of-the-art vending
+## scripts
+- `npm run start`
+- `npm run test`
+
+#### <b>Question</b>
+- You’ve been employed to build the software behind a brand new state-of-the-art vending
 machine to be rolled out to all public schools in Australia. The vending machine will dispense
 the latest vegan chocolate bars.
 Your task is to design a system that allows the user to enter coins in the following
@@ -12,10 +16,10 @@ The app must not allow the user to enter invalid currency and must ensure they�
 correct amount of money prior to prompting for their selection.
 Writing unit tests is essential for this vending machine to make it into production and allow kids
 across the country to get awesome vegan snacks.
-### HINTS
+#### <b>HINTS</b>
 
-● What happens if the child enters too much money (two $2 coins)?<br/>
-● What happens if the child enters a 5c coin?<br/>
-● Don’t mix presentation logic with business logic<br/>
-● How does a child enter their choice of chocolate bar?<br/>
-● Browser or CLI - your choice
+●  &nbsp; What happens if the child enters too much money (two $2 coins)?<br/>
+●  &nbsp; What happens if the child enters a 5c coin?<br/>
+●  &nbsp; Don’t mix presentation logic with business logic<br/>
+●  &nbsp; How does a child enter their choice of chocolate bar?<br/>
+●  &nbsp; Browser or CLI - your choice
