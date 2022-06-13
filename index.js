@@ -1,35 +1,27 @@
-import chalk from 'chalk';
 import { VendingMachine } from './src/VendingMachine.js';
+import { displayMenu, displayCurrentBalance,displayReceipt } from './src/utilities.js'
+import { CHOCOLATES } from './src/data.js'
 
 (async () => {
   const ChocolateVendingMachine = new VendingMachine();
 
-  console.log(chalk.yellowBright`
-  ***************************************************************
-  --------------  Chocolate Vending Machine ---------------------
-  || Caramel  --------------------------------------->  $2.50 ||
-  || Hazelnut  -------------------------------------->  $3.10 ||
-  || Organic Raw ------------------------------------>  $2.00 ||
-  ---------------------------------------------------------------
-  ***************************************************************
-  `);
+  console.log(displayMenu);
 
-  await ChocolateVendingMachine.inputCoins();
+  await ChocolateVendingMachine.promptInputCoins();
 
-  console.log(
-    chalk.cyanBright(
-      `
-==================================
-` +
-      'Current balance:           $' +
-      ChocolateVendingMachine.totalAmount +
-      `
-==================================
-      `
-    )
-  );
+  console.log(displayCurrentBalance(ChocolateVendingMachine.totalAmount));
 
-  await ChocolateVendingMachine.selectChocolates();
+  await ChocolateVendingMachine.promptSelectChocolates();
 
-  ChocolateVendingMachine.displayReceipt();
+  const chocolate = ChocolateVendingMachine.chocolate;
+  const price = Number(CHOCOLATES[chocolate]).toFixed(2);
+  const totalAmount = ChocolateVendingMachine.totalAmount;
+  const change = totalAmount - price;
+
+  console.log(displayReceipt({
+    totalAmount,
+    price,
+    change,
+    chocolate,
+  }));
 })();

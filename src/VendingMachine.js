@@ -1,6 +1,7 @@
-import { DENOMINATIONS, PROMPT_PROPERTIES, CHOCOLATES } from './data.js';
-import prompts from 'prompts';
 import chalk from 'chalk';
+import prompts from 'prompts';
+import { DENOMINATIONS, PROMPT_PROPERTIES, CHOCOLATES } from './data.js';
+import { killProcess, displayCurrentBalance } from './utilities.js';
 
 /**
  * @class VendingMachine
@@ -46,59 +47,29 @@ export class VendingMachine {
   }
 
   /**
-   * Display current balance in the console.
-   */
-  displayCurrentBalance() {
-    console.log(
-      chalk.cyanBright(
-        `==================================
-` +
-          'current balance:            $' +
-          this.totalAmount +
-          `
-==================================
-      `
-      )
-    );
-  }
-
-  /**
-   * exits the program if ESC is clicked.
-   * @param {string} value 
-   */
-  exitVendingMachine(value) {
-    if (!value) {
-      console.log(chalk.redBright`Exiting Vending Machine...`);
-      process.exit(1);
-    }
-  }
-
-  /**
    * Prompt for entering the amount
    */
-  async inputCoins() {
+  async promptInputCoins() {
     const { coins, confirm } = PROMPT_PROPERTIES;
     const { amount } = await prompts(coins);
 
-    this.exitVendingMachine(amount);
+    killProcess(amount);
+
     this.totalAmount = amount;
+    console.log(displayCurrentBalance(this.totalAmount));
 
-    // 2.00 lowest value of the chocolates
-    if (this.totalAmount < 2.0) {
-      console.log(chalk.cyanBright`
-==================================
-Please enter more coins.`);
-      this.displayCurrentBalance();
-
-      await this.inputCoins();
+    if (this.totalAmount < 2.00) {
+      console.log(chalk.cyanBright`  ------- Please input more coins --------
+      `);
+      
+      await this.promptInputCoins();
     } else {
-      this.displayCurrentBalance();
       const { confirmed } = await prompts(confirm);
 
-      this.exitVendingMachine(confirmed === undefined ? false : true);
+      killProcess(confirmed === undefined ? false : true);
 
       if (confirmed) {
-        await this.inputCoins();
+        await this.promptInputCoins();
       }
     }
   }
@@ -106,9 +77,18 @@ Please enter more coins.`);
   /**
    * Prompt for selection of chocolates
    */
-  async selectChocolates() {
+  async promptSelectChocolates() {
+    const { chocolate } = await prompts(this.chocolateProperty);
+
+    killProcess(chocolate);
+
+    this.chocolate = chocolate;
+  }
+
+  get chocolateProperty() {
     const { chocolates } = PROMPT_PROPERTIES;
-    const { chocolate } = await prompts({
+
+    return {
       ...chocolates,
       choices: chocolates.choices.map((choice) => {
         const { value } = choice;
@@ -118,35 +98,6 @@ Please enter more coins.`);
           disabled: CHOCOLATES[value] > Number(this.totalAmount) ? true : false,
         };
       }),
-    });
-
-    this.chocolate = chocolate;
-  }
-
-  displayReceipt() {
-    const title = {
-      organicRaw: 'Organic Raw',
-      hazelnut: 'Hazelnut',
-      caramel: 'Caramel',
-    };
-    const price = Number(CHOCOLATES[this.chocolate]).toFixed(2);
-
-    if (this.totalAmount >= price) {
-      console.log(
-        chalk.greenBright(`
-=============================================
--------- Chocolate Vending Machine ----------
----------------------------------------------
-${title[this.chocolate]} - - - - - - - - - - - - - $${price}
----------------------------------------------
-Cash: - - - - - - - - - - - - - - $${this.totalAmount}
-=============================================
-Change: - - - - - - - - - - - - - -  $${Number(
-          this.totalAmount - price
-        ).toFixed(2)}
-=============================================
-      `)
-      );
     }
   }
 }

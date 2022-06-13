@@ -3,6 +3,13 @@ export const CHOCOLATES = {
   hazelnut: 3.10,
   organicRaw: 2.0,
 };
+
+export const CHOCOLATE_TITLES = {
+  organicRaw: 'Organic Raw',
+  hazelnut: 'Hazelnut',
+  caramel: 'Caramel',
+};
+
 export const DENOMINATIONS = {
   '10c': 0.10,
   '20c': 0.20,
@@ -10,6 +17,7 @@ export const DENOMINATIONS = {
   '$1': 1,
   '$2': 2,
 };
+
 export const PROMPT_PROPERTIES = {
   coins: {
     type: 'text',
