@@ -1,5 +1,7 @@
 # chocolate-vending-machine
 
+![image description](./images/menu.png)
+
 ## scripts
 - `npm run start`
 - `npm run test`
