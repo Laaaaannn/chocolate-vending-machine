@@ -3,6 +3,7 @@
 ![image description](./images/menu.png)
 
 ## scripts
+- `npm install` to install dependencies
 - `npm run start`
 - `npm run test`
 
