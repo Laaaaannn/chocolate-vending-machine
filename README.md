@@ -1,4 +1,4 @@
-# chocolate-vending-machine
+# Chocolate Vending Machine
 
 ![image description](./images/menu.png)
 
